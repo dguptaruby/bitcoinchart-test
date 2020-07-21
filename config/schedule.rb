@@ -5,5 +5,5 @@
 set :output, 'log/whenever.log'
 
 every 1.minute do
-  command 'echo "hello"'
+  rake 'chart:update'
 end
