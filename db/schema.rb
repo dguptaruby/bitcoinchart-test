@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_20_135928) do
+ActiveRecord::Schema.define(version: 2020_07_21_040355) do
 
   create_table "charts", force: :cascade do |t|
     t.string "price"
