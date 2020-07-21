@@ -1,29 +1,36 @@
-<p id="notice"><%= notice %></p>
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#hour" role="tab">1 Hour</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#day" role="tab">1 Day</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#week" role="tab">1 Week</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#month" role="tab">1 Month</a>
+  </li>  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#year" role="tab">1 Year</a>
+  </li>
+</ul>
 
-<h1>Charts</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Price</th>
-      <th>Start at</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @charts.each do |chart| %>
-      <tr>
-        <td><%= chart.price %></td>
-        <td><%= chart.start_at %></td>
-        <td><%= link_to 'Show', chart %></td>
-        <td><%= link_to 'Edit', edit_chart_path(chart) %></td>
-        <td><%= link_to 'Destroy', chart, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Chart', new_chart_path %>
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="hour" role="tabpanel">
+    <%= line_chart Chart.one_hour.group_by_minute(:start_at).sum(:price) %>
+  </div>
+  <div class="tab-pane" id="day" role="tabpanel">
+    <%= line_chart Chart.one_day.group_by_hour(:start_at).sum(:price) %>
+  </div>
+  <div class="tab-pane" id="week" role="tabpanel">
+  <%= line_chart Chart.one_week.group_by_day(:start_at).sum(:price) %>
+  </div>
+  <div class="tab-pane" id="month" role="tabpanel">
+    <%= line_chart Chart.one_month.group_by_week(:start_at).sum(:price) %>
+  </div>
+  <div class="tab-pane" id="year" role="tabpanel">
+    <%= line_chart Chart.one_year.group_by_month(:start_at).sum(:price) %>
+  </div>
+</div>
